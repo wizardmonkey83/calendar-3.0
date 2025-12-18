@@ -29,7 +29,7 @@ def signup_view(request):
             else:
                 user = form.save()
                 # creates profile model alongside the user
-                Profile.objects.create(user=user, phone_number=phone_number, home_address=home_address, first_name=first_name, last_name=last_name)
+                Profile.objects.create(user=user, phone_number=phone_number, home_address=home_address)
                 login(request, user)
 
 

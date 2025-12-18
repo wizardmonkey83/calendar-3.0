@@ -7,6 +7,3 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=12)
     # keep forgetting how to set non-required fields. but i think this does it.
     home_address = models.CharField(blank=True)
-    first_name = models.CharField()
-    last_name = models.CharField()
-    
