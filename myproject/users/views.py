@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm, LoginForm
 from django.contrib.auth.models import User
-# from .models import Profile
+from .models import Profile
 
 
 # Create your views here.
@@ -21,13 +21,15 @@ def signup_view(request):
         if form.is_valid():
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
+            phone_number = form.cleaned_data["phone_number"]
+            home_address = form.cleaned_data["home_address"]
 
             if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
                 form.add_error(None, "Email or Username already exists")
             else:
                 user = form.save()
                 # creates profile model alongside the user
-                # Profile.objects.create(user=user)
+                Profile.objects.create(user=user, phone_number=phone_number, home_address=home_address)
                 login(request, user)
 
 

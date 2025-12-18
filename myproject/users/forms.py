@@ -21,6 +21,8 @@ class SignUpForm(UserCreationForm):
         }
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Password"}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"}))
+    phone_number = forms.CharField(max_length=10, widget=forms.TextInput(attrs={"placeholder": "Phone Number"}))
+    home_address = forms.CharField(required=False, widget=forms.TextInput(attrs={"placeholder": "Home Address (Optional)"}))
 
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Email'}))
