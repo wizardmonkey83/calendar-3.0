@@ -3,28 +3,35 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class SignUpForm(UserCreationForm):
-    # gets rid of the helptext that automatically appears 
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
-
-        for fieldname in ['username', 'password1', 'password2']:
-            self.fields[fieldname].help_text = None
             
-    class Meta:
-        model = User
-        fields = ("username", "email", "password1", "password2", 'first_name', 'last_name',)
-        widgets = {
-            "username": forms.TextInput(attrs={"placeholder": "Username"}),
-            "email": forms.TextInput(attrs={"placeholder": "Email"}),
-            # "password1": forms.PasswordInput(attrs={"placeholder": "Password"}),
-            # "password2": forms.PasswordInput(attrs={"placeholder": "Re-enter Password"}),
-            "first_name": forms.TextInput(blank=True, attrs={"placeholder": "First Name"}),
-            "last_name": forms.TextInput(blank=True, attrs={"placeholder": "Last Name"}),
-        }
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Password"}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"}))
     phone_number = forms.CharField(max_length=10, widget=forms.TextInput(attrs={"placeholder": "Phone Number"}))
     home_address = forms.CharField(required=False, widget=forms.TextInput(attrs={"placeholder": "Home Address (Optional)"}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={"placeholder": "Email"}))
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "password1", "password2", "first_name", "last_name",)
+        widgets = {
+            "username": forms.TextInput(attrs={"placeholder": "Username"}),
+            # "password1": forms.PasswordInput(attrs={"placeholder": "Password"}),
+            # "password2": forms.PasswordInput(attrs={"placeholder": "Re-enter Password"}),
+            "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
+            "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
+        }
+
+        # gets rid of the helptext that automatically appears 
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+
+        # this is an attempt to make these fields required
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['email'].required = True
+
+        for fieldname in ['username', 'password1', 'password2']:
+            self.fields[fieldname].help_text = None
     
 
 class LoginForm(forms.Form):
