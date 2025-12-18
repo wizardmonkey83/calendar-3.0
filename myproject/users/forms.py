@@ -12,17 +12,20 @@ class SignUpForm(UserCreationForm):
             
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2", )
+        fields = ("username", "email", "password1", "password2", 'first_name', 'last_name',)
         widgets = {
             "username": forms.TextInput(attrs={"placeholder": "Username"}),
             "email": forms.TextInput(attrs={"placeholder": "Email"}),
-            "password1": forms.PasswordInput(attrs={"placeholder": "Password"}),
-            "password2": forms.PasswordInput(attrs={"placeholder": "Re-enter Password"}),
+            # "password1": forms.PasswordInput(attrs={"placeholder": "Password"}),
+            # "password2": forms.PasswordInput(attrs={"placeholder": "Re-enter Password"}),
+            "first_name": forms.TextInput(blank=True, attrs={"placeholder": "First Name"}),
+            "last_name": forms.TextInput(blank=True, attrs={"placeholder": "Last Name"}),
         }
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Password"}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"}))
     phone_number = forms.CharField(max_length=10, widget=forms.TextInput(attrs={"placeholder": "Phone Number"}))
     home_address = forms.CharField(required=False, widget=forms.TextInput(attrs={"placeholder": "Home Address (Optional)"}))
+    
 
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Email'}))

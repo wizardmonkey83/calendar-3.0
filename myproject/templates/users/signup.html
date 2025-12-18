@@ -21,17 +21,22 @@
     <main class="auth-section">
         <div class="container auth">
             <h1 class="header auth">Create Account</h1>
+            <!--
+            <p class="mini-header">Create an account if you're looking for help during your post-visit recovery. 
+                If you are looking to help others, ask them to send you a link to their calendar.
+            </p>
+            -->
             <form method="post" class="auth-form">
                 {% csrf_token %}
                 
                 <div class="form-divider">
-                    <p class="mini-header">Personal Details</p>
+                    <p class="mini-header">Personal Information</p>
                     <div class="form-section">
                         <div class="form-group">
-                            {{ form.username }}
+                            {{ form.first_name }}
                         </div> 
                         <div class="form-group">
-                            {{ form.email }}
+                            {{ form.last_name }}
                         </div>
                     </div>
 
@@ -46,7 +51,15 @@
                 </div>
 
                 <div class="form-divider">
-                    <p class="mini-header">Security</p>
+                    <p class="mini-header">Registration Details</p>
+                    <div class="form-section">
+                        <div class="form-group">
+                            {{ form.username }}
+                        </div> 
+                        <div class="form-group">
+                            {{ form.email }}
+                        </div>
+                    </div>
                     <div class="form-section">
                         <div class="form-group">
                             {{ form.password1 }}

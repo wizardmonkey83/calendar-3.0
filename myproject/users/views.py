@@ -16,7 +16,7 @@ def load_login(request):
     return render(request, "users/login.html", {"form": form})
 
 def signup_view(request):
-    if request.method == "PSOT":
+    if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]
@@ -29,7 +29,7 @@ def signup_view(request):
             else:
                 user = form.save()
                 # creates profile model alongside the user
-                Profile.objects.create(user=user, phone_number=phone_number, home_address=home_address)
+                Profile.objects.create(user=user, phone_number=phone_number, home_address=home_address, first_name=first_name, last_name=last_name)
                 login(request, user)
 
 
