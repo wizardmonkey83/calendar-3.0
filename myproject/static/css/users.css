@@ -1,6 +1,6 @@
 body {
     background-color: #EFEFEF;
-    color: #1A1A1A;
+    color: #2c7432;
     font-family: "Space Grotesk", sans-serif;
     margin: 0;
     padding: 0;
@@ -23,7 +23,7 @@ a {
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #cf5605;
+    font-family: "Source Serif 4", sans-serif;
 
 }
 
@@ -47,6 +47,10 @@ a {
 
 .header {
     font-size: 2rem;
+}
+
+.header.auth {
+    font-family: "Source Serif 4", sans-serif;
 }
 
 .form-divider {
@@ -93,7 +97,7 @@ a {
 }
 .error-message {
     color: #FF375F;
-    font-family: "DM Sans", sans-serif;
+    font-family: inherit;
     font-size: 0.9rem;
     margin: 0.5rem 0;
 }

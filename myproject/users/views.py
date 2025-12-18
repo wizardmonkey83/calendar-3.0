@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, LoginForm
 from django.contrib.auth.models import User
+
+
 from .models import Profile
+from .forms import SignUpForm, LoginForm, StepOneSignInForm
 
 
 # Create your views here.
 def load_signup(request):
-    form = SignUpForm
+    form = StepOneSignInForm
     return render(request, "users/signup.html", {"form": form})
 
 def load_login(request):
