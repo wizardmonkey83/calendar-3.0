@@ -39,9 +39,13 @@ class StepOneSignInForm(forms.Form):
     recipient_email_address = forms.CharField(max_length=100, required=True, widget=forms.EmailInput(attrs={'placeholder': 'e.g. batman@gotham.com'}))
 
 class StepTwoSignInForm(forms.Form):
-    street_address = forms.CharField(max_length=200, required=True, widget=forms.TextInput())
-    recipient_city = forms.CharField(max_length=100, required=True, widget=forms.TextInput())
-    recipient_state = forms.CharField(max_length=50, required=True, widget=forms.TextInput())
+    street_address = forms.CharField(max_length=200, required=False, widget=forms.TextInput())
+    apt_suite = forms.CharField(max_length=200, required=False, widget=forms.TextInput())
+    recipient_city = forms.CharField(max_length=100, required=False, widget=forms.TextInput())
+    recipient_state = forms.CharField(max_length=50, required=False, widget=forms.TextInput())
+
+class StepThreeSignInForm(forms.Form):
+    recipient_bio = forms.CharField(widget=forms.Textarea())   
 
 
 class LoginForm(forms.Form):

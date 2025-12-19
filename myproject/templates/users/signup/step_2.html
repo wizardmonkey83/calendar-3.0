@@ -18,7 +18,7 @@
     <header class="main-header">
         <div class="logo"><a href="#">Arytes</a></div>
     </header>
-    <form method="post" action="{% url 'step_one_signup' %}">
+    <form method="post" action="{% url 'step_two_signup' %}">
         <main class="auth-section">
             <div class="container auth">
                 <h1 class="header auth">Where should the help go?</h1>
@@ -26,23 +26,32 @@
                     {% csrf_token %}
                     
                     <div class="form-divider">
-                        <p class="mini-header">Recipient Name</p>
+                        <p class="mini-header">Street Address</p>
                         <div class="form-group">
                             {{ form.street_address }}
                         </div> 
                     </div>
 
-                    <div class="form-divider">
-                        <p class="mini-header">Recipient Email Address</p>
-                        <div class="form-group">
-                            {{ form.recipient_city }}
+                    <div class="form-divider-container">
+                        <div class="form-divider space">
+                            <p class="mini-header">Apt/Suite (Optional)</p>
+                            <div class="form-group">
+                                {{ form.apt_suite }}
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-divider">
-                        <p class="mini-header">Recipient Email Address</p>
-                        <div class="form-group">
-                            {{ form.recipient_state }}
+                        <div class="form-divider space">
+                            <p class="mini-header">City</p>
+                            <div class="form-group">
+                                {{ form.recipient_city }}
+                            </div>
+                        </div>
+
+                        <div class="form-divider">
+                            <p class="mini-header">State</p>
+                            <div class="form-group">
+                                {{ form.recipient_state }}
+                            </div>
                         </div>
                     </div>
 
@@ -58,6 +67,19 @@
 
                 </div>
 
+                <p id="info-collection-notice" class="mini-header hover">Why is this information collected?</p>
+
+                <div id="details-section-auth" class="details-section-auth">
+                    <p class="paragraph">
+                        <strong>Recipient Street Address (Optional)</strong> is collected to inform volunteers of the patients location in order for them to drop off meals, coordinate rides, and more.
+                        This information is not needed to create a page or account, and can be skipped by pressing continue.
+                    </p>
+
+                    <p class="paragraph">
+                        <strong>Remember</strong> we will never sell or provide your information to others without consent.
+                    </p>
+                </div>
+
             </div>
 
             <div class="image-container signup">
@@ -66,9 +88,9 @@
         </main>
 
         <div class="footer">
-            <p class="mini-header step">Step 2 of 5</p>
+            <p class="mini-header step">Step 2 of 3</p>
             <div class="button-container">
-                <button type="submit" class="button auth-big container">Back</button>
+                <button type="button" class="button auth-big container" onclick="history.back()">Back</button>
                 <button type="submit" class="button auth-big">Continue</button>
             </div>
         </div>
@@ -76,3 +98,18 @@
 
 </body>
 </html>
+
+<script>
+    const infoNotice = document.getElementById("info-collection-notice");
+    const detailsSection = document.getElementById("details-section-auth");
+
+    infoNotice.addEventListener("click", displayNotice);
+    function displayNotice() {
+        if (detailsSection.style.display == "none") {
+            detailsSection.style.display = "block";
+        } else {
+            detailsSection.style.display = "none";
+        }
+        
+    }
+</script>

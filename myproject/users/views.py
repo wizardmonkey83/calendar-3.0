@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 from .models import Profile
-from .forms import SignUpForm, LoginForm, StepOneSignInForm, StepTwoSignInForm
+from .forms import SignUpForm, LoginForm, StepOneSignInForm, StepTwoSignInForm, StepThreeSignInForm
 
 
 # Create your views here.
@@ -30,6 +30,27 @@ def step_one_signup(request):
             
             return render(request, "users/signup/step_2.html", {"form": StepTwoSignInForm})
 
+
+def step_two_signup(request):
+    if request.method == "POST":
+        form = StepTwoSignInForm(request.POST)
+        # this might fail if fields arent entered even if they arent "required"
+        if form.is_valid():
+            street_address = form.cleaned_data["street_address"]
+            recipient_city = form.cleaned_data["recipient_city"]
+            recipient_state = form.cleaned_data["recipient_state"]
+            apt_suite = form.cleaned_data["apt_suite"]
+
+            if street_address:
+                request.session["arytes_help_street_address"] = street_address
+            if apt_suite:
+                request.session["arytes_help_apt_suite"] = apt_suite
+            if recipient_state:
+                request.session["arytes_help_recipient_state"] = recipient_state
+            if recipient_city:
+                request.session["arytes_help_recipient_city"] = recipient_city
+
+            return render(request, "users/signup/step_3.html", {"form": StepThreeSignInForm})
 
 def signup_view(request):
     if request.method == "POST":
