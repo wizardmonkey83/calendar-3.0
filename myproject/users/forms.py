@@ -45,7 +45,7 @@ class StepTwoSignInForm(forms.Form):
     recipient_state = forms.CharField(max_length=50, required=False, widget=forms.TextInput())
 
 class StepThreeSignInForm(forms.Form):
-    recipient_bio = forms.CharField(widget=forms.Textarea())   
+    recipient_bio = forms.CharField(max_length=500, required=False, widget=forms.Textarea())   
 
 
 class LoginForm(forms.Form):
