@@ -34,9 +34,9 @@ class SignUpForm(UserCreationForm):
             self.fields[fieldname].help_text = None
     
 class StepOneSignInForm(forms.Form):
-    recipient_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'e.g. The Sahle Family'}))
+    recipient_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'e.g. The Avengers'}))
     # use emailinput instead of emailfield. dunno why.
-    recipient_email_address = forms.CharField(max_length=100, required=True, widget=forms.EmailInput())
+    recipient_email_address = forms.CharField(max_length=100, required=True, widget=forms.EmailInput(attrs={'placeholder': 'e.g. batman@gotham.com'}))
 
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Email'}))

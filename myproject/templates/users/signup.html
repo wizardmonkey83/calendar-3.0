@@ -12,54 +12,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Workbench&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
-    <title>Sign Up</title>
+    <title>Start a help page</title>
 </head>
 <body>
     <header class="main-header">
         <div class="logo"><a href="#">Arytes</a></div>
     </header>
-
-    <main class="auth-section">
-        <div class="container auth">
-            <h1 class="header auth">Start an Arytes help page for</h1>
-            <!--
-            <p class="mini-header">Create an account if you're looking for help during your post-visit recovery. 
-                If you are looking to help others, ask them to send you a link to their calendar.
-            </p>
-            -->
-            <form method="post" class="auth-form">
-                {% csrf_token %}
-                
-                <div class="form-divider">
-                    <p class="mini-header">Recipient Name</p>
-                    <div class="form-group">
-                        {{ form.recipient_name }}
-                    </div> 
-                </div>
-
-                <div class="form-divider">
-                    <p class="mini-header">Recipient Email Address</p>
-                    <div class="form-group">
-                        {{ form.recipient_email_address }}
+    <form method="post">
+        <main class="auth-section">
+            <div class="container auth">
+                <h1 class="header auth">Start an Arytes help page for</h1>
+                <div class="auth-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-divider">
+                        <p class="mini-header">Recipient Name</p>
+                        <div class="form-group">
+                            {{ form.recipient_name }}
+                        </div> 
                     </div>
-                </div>
 
-                {% if form.errors %}
-                    <div class="form-errors">
-                        {% for field, error_list in form.errors.items %}
-                            {% for error in error_list %}
-                                <p class="error-message">{{ error }}</p>
+                    <div class="form-divider">
+                        <p class="mini-header">Recipient Email Address</p>
+                        <div class="form-group">
+                            {{ form.recipient_email_address }}
+                        </div>
+                    </div>
+
+                    {% if form.errors %}
+                        <div class="form-errors">
+                            {% for field, error_list in form.errors.items %}
+                                {% for error in error_list %}
+                                    <p class="error-message">{{ error }}</p>
+                                {% endfor %}
                             {% endfor %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                        </div>
+                    {% endif %}
 
-                <button type="submit" class="button auth">Sign Up</button>
-            </form>
+                </div>
 
-            <p class="link">Already have an account? <a href="{% url 'load_login' %}">Log In</a></p>
+
+                <p class="link">Already have an account? <a href="{% url 'load_login' %}">Log In</a></p>
+            </div>
+
+            <div class="image-container signup">
+                <img src="{% static 'images/bag-health-delivery.png' %}" alt="bag-health-delivery"/>
+            </div>
+        </main>
+
+        <div class="footer">
+            <p class="mini-header">Step 1 of 5</p>
+            <button type="submit" class="button auth">Continue</button>
         </div>
-    </main>
+    </form>
 
 </body>
 </html>
