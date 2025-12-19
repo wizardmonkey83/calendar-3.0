@@ -38,6 +38,12 @@ class StepOneSignInForm(forms.Form):
     # use emailinput instead of emailfield. dunno why.
     recipient_email_address = forms.CharField(max_length=100, required=True, widget=forms.EmailInput(attrs={'placeholder': 'e.g. batman@gotham.com'}))
 
+class StepTwoSignInForm(forms.Form):
+    street_address = forms.CharField(max_length=200, required=True, widget=forms.TextInput())
+    recipient_city = forms.CharField(max_length=100, required=True, widget=forms.TextInput())
+    recipient_state = forms.CharField(max_length=50, required=True, widget=forms.TextInput())
+
+
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Email'}))
     password = forms.CharField(max_length=100, required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))

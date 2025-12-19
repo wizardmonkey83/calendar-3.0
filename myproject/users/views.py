@@ -5,17 +5,31 @@ from django.contrib.auth.models import User
 
 
 from .models import Profile
-from .forms import SignUpForm, LoginForm, StepOneSignInForm
+from .forms import SignUpForm, LoginForm, StepOneSignInForm, StepTwoSignInForm
 
 
 # Create your views here.
 def load_signup(request):
     form = StepOneSignInForm
-    return render(request, "users/signup.html", {"form": form})
+    return render(request, "users/signup/signup.html", {"form": form})
 
 def load_login(request):
     form = LoginForm
     return render(request, "users/login.html", {"form": form})
+
+def step_one_signup(request):
+    if request.method == "POST":
+        form = StepOneSignInForm(request.POST)
+        if form.is_valid():
+            recipient_name = form.cleaned_data["recipient_name"]
+            recipient_email_address = form.cleaned_data["recipient_email_address"]
+
+            # think this is going to be easiest
+            request.session["arytes_help_recipient_name"] = recipient_name
+            request.session["arytes_help_recipient_email_address"] = recipient_email_address
+            
+            return render(request, "users/signup/step_2.html", {"form": StepTwoSignInForm})
+
 
 def signup_view(request):
     if request.method == "POST":
