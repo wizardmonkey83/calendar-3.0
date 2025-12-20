@@ -21,12 +21,12 @@
     <form method="post" action="{% url 'step_one_signup' %}">
         <main class="auth-section">
             <div class="container auth">
-                <h1 class="header auth">Create an Arytes Account</h1>
+                <h1 class="header auth">Start an Arytes help page for</h1>
                 <div class="auth-form">
                     {% csrf_token %}
                     
                     <div class="form-divider">
-                        <p class="mini-header">Email Address</p>
+                        <p class="mini-header">Recipient Name</p>
                         <div class="form-group">
                             {{ form.recipient_name }}
                         </div> 

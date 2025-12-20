@@ -1,22 +1,18 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from .models import CustomUser
 
 class SignUpForm(UserCreationForm):
             
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Password"}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"}))
     phone_number = forms.CharField(max_length=10, widget=forms.TextInput(attrs={"placeholder": "Phone Number"}))
-    home_address = forms.CharField(required=False, widget=forms.TextInput(attrs={"placeholder": "Home Address (Optional)"}))
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={"placeholder": "Email"}))
 
     class Meta:
-        model = User
-        fields = ("username", "email", "password1", "password2", "first_name", "last_name",)
+        model = CustomUser
+        fields = ("email", "first_name", "last_name", "phone_number")
         widgets = {
-            "username": forms.TextInput(attrs={"placeholder": "Username"}),
-            # "password1": forms.PasswordInput(attrs={"placeholder": "Password"}),
-            # "password2": forms.PasswordInput(attrs={"placeholder": "Re-enter Password"}),
             "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
             "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
         }
