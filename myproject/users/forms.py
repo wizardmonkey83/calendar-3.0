@@ -1,33 +1,19 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
 
-class SignUpForm(UserCreationForm):
-            
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Password"}))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"}))
-    phone_number = forms.CharField(max_length=10, widget=forms.TextInput(attrs={"placeholder": "Phone Number"}))
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={"placeholder": "Email"}))
+class SignUpForm(forms.Form):
 
-    class Meta:
-        model = CustomUser
-        fields = ("email", "first_name", "last_name", "phone_number")
-        widgets = {
-            "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
-            "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
-        }
+    first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput())
+    last_name = forms.CharField(required=True, widget=forms.TextInput())         
+    password1 = forms.CharField(required=True, widget=forms.PasswordInput())
+    password2 = forms.CharField(required=True, widget=forms.PasswordInput())
+    phone_number = forms.CharField(max_length=10, required=True, widget=forms.TextInput())
+    email = forms.EmailField(required=True, widget=forms.EmailInput())
 
-        # gets rid of the helptext that automatically appears 
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
 
-        # this is an attempt to make these fields required
-        self.fields['first_name'].required = True
-        self.fields['last_name'].required = True
-        self.fields['email'].required = True
-
-        for fieldname in ['username', 'password1', 'password2']:
-            self.fields[fieldname].help_text = None
+class LoginForm(forms.Form):
+    email = forms.CharField(max_length=100, required=True, widget=forms.TextInput())
+    password = forms.CharField(max_length=100, required=True, widget=forms.PasswordInput())
     
 class StepOneSignInForm(forms.Form):
     recipient_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'e.g. The Avengers'}))
@@ -42,8 +28,3 @@ class StepTwoSignInForm(forms.Form):
 
 class StepThreeSignInForm(forms.Form):
     recipient_bio = forms.CharField(max_length=500, required=False, widget=forms.Textarea())   
-
-
-class LoginForm(forms.Form):
-    email = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Email'}))
-    password = forms.CharField(max_length=100, required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))

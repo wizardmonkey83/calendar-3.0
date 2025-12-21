@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from .forms import SignUpForm, LoginForm, StepOneSignInForm, StepTwoSignInForm, StepThreeSignInForm
 
 User = get_user_model()
+
 # Create your views here.
 def load_signup(request):
     form = SignUpForm
@@ -19,14 +20,26 @@ def signup_view(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
             email = form.cleaned_data["email"]
             phone_number = form.cleaned_data["phone_number"]
+            password1 = form.cleaned_data["password1"]
+            password2 = form.cleaned_data["password2"]
 
-            if User.objects.filter(email=email).exists():
-                form.add_error(None, "Email or Username already exists")
-            else:
-                user = form.save()
-                login(request, user)
+            if User.objects.filter(email=email).exists() or User.objects.filter(phone_number=phone_number).exists():
+                form.add_error(None, "Email or Phone Number already in use")
+                return render(request, "users/signup/signup.html", {"form": form})
+            if password1 != password2:
+                form.add_error(None, "Password don't match")
+                return render(request, "users/signup/signup.html", {"form": form})
+            
+            user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, phone_number=phone_number, password=password1)
+            login(request, user)
+            return redirect()
+    else:
+        form = SignUpForm
+        return render(request, "users/signup/signup.html", {"form": form})
 
 
 def login_view(request):

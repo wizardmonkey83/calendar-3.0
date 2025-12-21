@@ -124,3 +124,6 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# since abstractuser models is being used
+AUTH_USER_MODEL = 'users.CustomUser'
