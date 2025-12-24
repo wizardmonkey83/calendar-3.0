@@ -31,12 +31,12 @@ def signup_view(request):
                 form.add_error(None, "Email or Phone Number already in use")
                 return render(request, "users/signup/signup.html", {"form": form})
             if password1 != password2:
-                form.add_error(None, "Password don't match")
+                form.add_error(None, "Passwords don't match")
                 return render(request, "users/signup/signup.html", {"form": form})
             
             user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, phone_number=phone_number, password=password1)
             login(request, user)
-            return redirect()
+            return redirect("load_home")
     else:
         form = SignUpForm
         return render(request, "users/signup/signup.html", {"form": form})
