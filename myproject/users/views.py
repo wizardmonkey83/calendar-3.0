@@ -51,15 +51,14 @@ def login_view(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 login(request, user)
-                
-                return redirect("problem_list_window")
+                return redirect("load_home")
             else:
                 form.add_error(None, "Invalid Email or Password")
-            
+                return render(request, "users/signup/signup.html", {"form": form})
     else:
-        form = LoginForm()
+        form = LoginForm
     
-    return render(request, "accounts/login.html", {"form": form})
+    return render(request, "users/login.html", {"form": form})
 
 @login_required
 def load_step_one_signup(request):

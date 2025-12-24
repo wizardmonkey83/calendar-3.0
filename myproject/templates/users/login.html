@@ -19,7 +19,7 @@
         <div class="logo"><a href="#">Arytes</a></div>
     </header>
 
-    <form method="post">
+    <form method="post" action="{% url 'login_view' %}">
         <main class="auth-section">
             <div class="container auth">
                 <h1 class="header auth">Login to your Arytes Account</h1>
@@ -55,7 +55,7 @@
                 </div>
 
 
-                <p class="link">Don't have an Account? <a href="{% url 'signup_view' %}">Signup</a></p>
+                <p class="link">Don't have an Account? <a href="{% url 'signup_view' %}"><strong>Signup</strong></a></p>
             </div>
 
             <div class="image-container signup">

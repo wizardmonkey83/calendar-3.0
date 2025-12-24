@@ -12,7 +12,7 @@ class SignUpForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    email = forms.CharField(max_length=100, required=True, widget=forms.TextInput())
+    email = forms.EmailField(max_length=100, required=True, widget=forms.EmailInput())
     password = forms.CharField(max_length=100, required=True, widget=forms.PasswordInput())
     
 class StepOneSignInForm(forms.Form):
