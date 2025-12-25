@@ -3,11 +3,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 
-from .forms import SignUpForm, LoginForm, StepOneSignInForm, StepTwoSignInForm, StepThreeSignInForm
+from .forms import SignUpForm, LoginForm, StepOneSignInForm, StepTwoSignInForm, StepThreeSignInForm, EditProfileForm
 
 User = get_user_model()
 
 # Create your views here.
+
+# auth
 def load_signup(request):
     form = SignUpForm
     return render(request, "users/signup/signup.html", {"form": form})
@@ -70,11 +72,62 @@ def login_view(request):
     return render(request, "users/login.html", {"form": form})
 
 
+# profile
 @login_required
 def profile_view(request):
     return render(request, "users/profile/profile.html")
 
+@login_required
+def load_profile_fragment(request):
+    return render(request, "users/profile/profile_fragment.html")
 
+@login_required
+def load_edit_profile(request):
+    user = request.user
+    form = EditProfileForm(initial={"first_name": user.first_name, "last_name": user.last_name, "phone_number": user.phone_number, "email": user.email})
+    return render(request, "users/profile/edit.html", {"form": form})
+
+@login_required
+def save_profile(request):
+    if request.method == "POST":
+        form = EditProfileForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
+            email = form.cleaned_data["email"]
+            phone_number = form.cleaned_data["phone_number"]
+
+            if first_name and first_name != user.first_name:
+                user.first_name = first_name
+            if last_name and last_name != user.last_name:
+                user.last_name = last_name
+            if email and email != user.email:
+                if User.objects.filter(email=email).exists():
+                    form.add_error(None, "Email already exists.")
+                    return render(request, "users/profile/edit.html", {"form": form})
+                user.email = email
+            if phone_number and phone_number != user.phone_number:
+                formatted_number = ""
+                count = 0
+                for n in phone_number:
+                    if count == 3 or count == 6:
+                        formatted_number += "-"
+                    formatted_number += n
+                    count += 1
+                if User.objects.filter(phone_number=formatted_number).exists():
+                    form.add_error(None, "Phone number already exists.")
+                    return render(request, "users/profile/edit.html", {"form": form})
+                user.phone_number = formatted_number
+            user.save()
+            return render(request, "users/profile/profile_fragment.html")
+        else:
+            return render(request, "users/profile/edit.html", {"form": form})
+
+
+
+
+# create calendar
 @login_required
 def load_step_one_signup(request):
     form = StepOneSignInForm

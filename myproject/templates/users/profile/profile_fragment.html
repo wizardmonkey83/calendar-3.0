@@ -1,0 +1,51 @@
+{% load static %}
+<div id="auth-section">
+    <main class="auth-section">
+        <div class="container auth">
+            <h1 class="header auth">{{ user.first_name }}'s profile</h1>
+            <div class="auth-form">
+                
+                <div class="form-divider-container-signup">
+                    <div class="form-divider space">
+                        <p class="mini-header">First Name</p>
+                        <div class="form-group">
+                            {{ user.first_name }}
+                        </div>
+                    </div>
+
+                    <div class="form-divider">
+                        <p class="mini-header">Last Name</p>
+                        <div class="form-group">
+                            {{ user.last_name }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-divider-container-signup">
+                    <div class="form-divider space">
+                        <p class="mini-header">Email Address</p>
+                        <div class="form-group">
+                            {{ user.email }}
+                        </div>
+                    </div>
+
+                    <div class="form-divider">
+                        <p class="mini-header">Phone Number</p>
+                        <div class="form-group">
+                            {{ user.phone_number }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="image-container signup">
+            <img src="{% static 'images/flower-pot.png' %}" alt="flower-pot"/>
+        </div>
+    </main>
+
+    <div class="footer">
+        <p class="mini-header step">Member since: {{ user.date_joined.date }}</p>
+        <button type="submit" class="button auth-big" hx-get="{% url 'load_edit_profile' %}" hx-target="#auth-section" hx-swap="outerHTML">Edit</button>
+    </div>
+</div>

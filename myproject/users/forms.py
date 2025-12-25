@@ -1,8 +1,8 @@
 from django import forms
 from .models import CustomUser
 
+# auth
 class SignUpForm(forms.Form):
-
     first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput())
     last_name = forms.CharField(required=True, widget=forms.TextInput())         
     password1 = forms.CharField(required=True, widget=forms.PasswordInput())
@@ -10,11 +10,18 @@ class SignUpForm(forms.Form):
     phone_number = forms.CharField(max_length=10, required=True, widget=forms.TextInput())
     email = forms.EmailField(required=True, widget=forms.EmailInput())
 
-
 class LoginForm(forms.Form):
     email = forms.EmailField(max_length=100, required=True, widget=forms.EmailInput())
     password = forms.CharField(max_length=100, required=True, widget=forms.PasswordInput())
-    
+
+# edit profile
+class EditProfileForm(forms.Form):
+    first_name = forms.CharField(max_length=100, required=False, widget=forms.TextInput())
+    last_name = forms.CharField(required=False, widget=forms.TextInput())
+    phone_number = forms.CharField(max_length=10, required=False, widget=forms.TextInput())
+    email = forms.EmailField(required=False, widget=forms.EmailInput())
+
+# create calendar
 class StepOneSignInForm(forms.Form):
     recipient_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'e.g. The Avengers'}))
     # use emailinput instead of emailfield. dunno why.
