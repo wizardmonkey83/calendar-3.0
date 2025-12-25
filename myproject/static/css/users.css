@@ -27,6 +27,24 @@ a {
 
 }
 
+.main-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+}
+
+.main-nav a {
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.main-nav a:hover {
+    color: #3fa748;
+}
+
 .auth-section {
     display: flex;
     flex-direction: row;
@@ -47,7 +65,7 @@ a {
 .container.auth {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: stretch;
     flex-wrap: wrap;
     max-width: 700px;
@@ -243,4 +261,10 @@ a {
 
 .form-divider.space {
     margin-right: 1rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }

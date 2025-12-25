@@ -29,22 +29,21 @@
     </header>
     <main class="auth-section">
         <div class="container auth">
-            <h1 class="header auth">Welcome Back, {{ user.first_name }} {{ user.last_name }}</h1>
+            <h1 class="header auth">{{ user.first_name }}'s profile</h1>
             <div class="auth-form">
-                {% csrf_token %}
                 
                 <div class="form-divider-container-signup">
                     <div class="form-divider space">
                         <p class="mini-header">First Name</p>
                         <div class="form-group">
-                            {{ form.first_name }}
+                            {{ user.first_name }}
                         </div>
                     </div>
 
                     <div class="form-divider">
                         <p class="mini-header">Last Name</p>
                         <div class="form-group">
-                            {{ form.last_name }}
+                            {{ user.last_name }}
                         </div>
                     </div>
                 </div>
@@ -53,48 +52,18 @@
                     <div class="form-divider space">
                         <p class="mini-header">Email Address</p>
                         <div class="form-group">
-                            {{ form.email }}
+                            {{ user.email }}
                         </div>
                     </div>
 
                     <div class="form-divider">
                         <p class="mini-header">Phone Number</p>
                         <div class="form-group">
-                            {{ form.phone_number }}
+                            {{ user.phone_number }}
                         </div>
                     </div>
                 </div>
-
-                <div class="form-divider-container-signup">
-                    <div class="form-divider space">
-                        <p class="mini-header">Password</p>
-                        <div class="form-group">
-                            {{ form.password1 }}
-                        </div>
-                    </div>
-
-                    <div class="form-divider">
-                        <p class="mini-header">Confirm Password</p>
-                        <div class="form-group">
-                            {{ form.password2 }}
-                        </div>
-                    </div>
-                </div>
-
-                {% if form.errors %}
-                    <div class="form-errors">
-                        {% for field, error_list in form.errors.items %}
-                            {% for error in error_list %}
-                                <p class="error-message">{{ error }}</p>
-                            {% endfor %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
             </div>
-
-
-            <p class="link">Already have an account? <a href="{% url 'login_view' %}"><strong>Log In</strong></a></p>
         </div>
 
         <div class="image-container signup">
@@ -102,8 +71,9 @@
         </div>
     </main>
 
-    <div class="footer-signup">
-        <button type="submit" class="button auth-big">Create</button>
+    <div class="footer">
+        <p class="mini-header step">Member since: {{ user.date_joined.date }}</p>
+        <button type="submit" class="button auth-big">Edit</button>
     </div>
 
 </body>

@@ -34,7 +34,16 @@ def signup_view(request):
                 form.add_error(None, "Passwords don't match")
                 return render(request, "users/signup/signup.html", {"form": form})
             
-            user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, phone_number=phone_number, password=password1)
+            # prettfiy the phone number
+            formatted_number = ""
+            count = 0
+            for n in phone_number:
+                if count == 3 or count == 6:
+                    formatted_number += "-"
+                formatted_number += n
+                count += 1
+
+            user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, phone_number=formatted_number, password=password1)
             login(request, user)
             return redirect("load_home")
     else:
@@ -60,10 +69,16 @@ def login_view(request):
     
     return render(request, "users/login.html", {"form": form})
 
+
+@login_required
+def profile_view(request):
+    return render(request, "users/profile/profile.html")
+
+
 @login_required
 def load_step_one_signup(request):
     form = StepOneSignInForm
-    return render(request, "user/signup/step_1.html", {"form": form})
+    return render(request, "users/signup/step_1.html", {"form": form})
 
 @login_required
 def step_one_create(request):
