@@ -68,18 +68,33 @@ def login_view(request):
                 return render(request, "users/signup/signup.html", {"form": form})
     else:
         form = LoginForm
-    
     return render(request, "users/login.html", {"form": form})
 
 
 # profile
 @login_required
 def profile_view(request):
-    return render(request, "users/profile/profile.html")
+    phone_number = request.user.phone_number
+    formatted_number = ""
+    count = 0
+    for n in phone_number:
+        if count == 3 or count == 6:
+            formatted_number += "-"
+        formatted_number += n
+        count += 1
+    return render(request, "users/profile/profile.html", {"phone_number": phone_number})
 
 @login_required
 def load_profile_fragment(request):
-    return render(request, "users/profile/profile_fragment.html")
+    phone_number = request.user.phone_number
+    formatted_number = ""
+    count = 0
+    for n in phone_number:
+        if count == 3 or count == 6:
+            formatted_number += "-"
+        formatted_number += n
+        count += 1
+    return render(request, "users/profile/profile_fragment.html", {"phone_number": phone_number})
 
 @login_required
 def load_edit_profile(request):
@@ -98,30 +113,34 @@ def save_profile(request):
             email = form.cleaned_data["email"]
             phone_number = form.cleaned_data["phone_number"]
 
+            print(f"FIRST NAME: {first_name}")
+            print(f"LAST NAME: {last_name}")
+            print(f"EMAIL: {email}")
+            print(f"PHONE NUMBER: {phone_number}")
+
             if first_name and first_name != user.first_name:
                 user.first_name = first_name
+                user.save()
             if last_name and last_name != user.last_name:
                 user.last_name = last_name
+                user.save()
             if email and email != user.email:
                 if User.objects.filter(email=email).exists():
+                    print("EMAIL ALREADY EXISTS")
                     form.add_error(None, "Email already exists.")
                     return render(request, "users/profile/edit.html", {"form": form})
                 user.email = email
+                user.save()
             if phone_number and phone_number != user.phone_number:
-                formatted_number = ""
-                count = 0
-                for n in phone_number:
-                    if count == 3 or count == 6:
-                        formatted_number += "-"
-                    formatted_number += n
-                    count += 1
-                if User.objects.filter(phone_number=formatted_number).exists():
+                if User.objects.filter(phone_number=phone_number).exists():
                     form.add_error(None, "Phone number already exists.")
                     return render(request, "users/profile/edit.html", {"form": form})
-                user.phone_number = formatted_number
-            user.save()
+                user.phone_number = phone_number
+                user.save()
+            print("MADE IT PAST ALL CHECKS")
             return render(request, "users/profile/profile_fragment.html")
         else:
+            print("INVALID FORM")
             return render(request, "users/profile/edit.html", {"form": form})
 
 
@@ -177,4 +196,3 @@ def step_two_create(request):
 @login_required     
 def step_three_create(request):
     return None
-
