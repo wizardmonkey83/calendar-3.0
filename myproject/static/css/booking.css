@@ -1,0 +1,26 @@
+.home-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: wrap;
+    max-width: 700px;
+    width: 100%;
+    padding: 2.5rem;
+}
+
+.container-home {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.home-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.home-group.left {
+    margin-right: 10rem;
+}

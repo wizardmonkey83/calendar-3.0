@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="{% static 'css/users.css'  %}">
+    <link rel="stylesheet" href="{% static 'css/booking.css'  %}">
     <script src="https://unpkg.com/htmx.org@1.9.9"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,78 +28,19 @@
             </ul>
         </nav>
     </header>
-    <main class="auth-section">
-        <div class="container auth">
-            <h1 class="header auth">Welcome Back, {{ user.first_name }} {{ user.last_name }}</h1>
-            <div class="auth-form">
-                {% csrf_token %}
-                
-                <div class="form-divider-container-signup">
-                    <div class="form-divider space">
-                        <p class="mini-header">First Name</p>
-                        <div class="form-group">
-                            {{ form.first_name }}
-                        </div>
-                    </div>
-
-                    <div class="form-divider">
-                        <p class="mini-header">Last Name</p>
-                        <div class="form-group">
-                            {{ form.last_name }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-divider-container-signup">
-                    <div class="form-divider space">
-                        <p class="mini-header">Email Address</p>
-                        <div class="form-group">
-                            {{ form.email }}
-                        </div>
-                    </div>
-
-                    <div class="form-divider">
-                        <p class="mini-header">Phone Number</p>
-                        <div class="form-group">
-                            {{ form.phone_number }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-divider-container-signup">
-                    <div class="form-divider space">
-                        <p class="mini-header">Password</p>
-                        <div class="form-group">
-                            {{ form.password1 }}
-                        </div>
-                    </div>
-
-                    <div class="form-divider">
-                        <p class="mini-header">Confirm Password</p>
-                        <div class="form-group">
-                            {{ form.password2 }}
-                        </div>
-                    </div>
-                </div>
-
-                {% if form.errors %}
-                    <div class="form-errors">
-                        {% for field, error_list in form.errors.items %}
-                            {% for error in error_list %}
-                                <p class="error-message">{{ error }}</p>
-                            {% endfor %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
+    <main class="home-section">
+        <h1 class="header auth">Welcome Back, {{ user.first_name }} {{ user.last_name }}</h1>
+        <div class="container-home">
+            <div class="home-group left">
+                <p class="mini-header">Current Calendars</p>
 
             </div>
 
+            <div class="home-group">
+                <p class="mini-header">Recent Activity</p>
 
-            <p class="link">Already have an account? <a href="{% url 'login_view' %}"><strong>Log In</strong></a></p>
-        </div>
+            </div>
 
-        <div class="image-container signup">
-            <img src="{% static 'images/flower-pot.png' %}" alt="flower-pot"/>
         </div>
     </main>
 
